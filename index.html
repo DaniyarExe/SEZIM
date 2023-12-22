@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR and Barcode Scanner</title>
+</head>
+
+<body>
+    <div id="reader" width="600px"></div>
+
+    <script src="https://unpkg.com/html5-qrcode@2.0.4/dist/html5-qrcode.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode@2.0.4/dist/html5-qrcode.min.js.map"></script>
+    <script src="https://unpkg.com/@zxing/library@0.23.0/umd@zxing.umd.min.js"></script>
+
+    <script>
+        function onScanSuccess(decodedText, decodedResult) {
+
+            console.log(`Code matched = ${decodedText}`, decodedResult);
+        }
+
+        function onScanFailure(error) {
+
+            console.warn(`Code scan error = ${error}`);
+        }
+
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader",
+            { fps: 10, qrbox: { width: 250, height: 250 } },
+            /* verbose= */ false,
+            onScanSuccess,
+            onScanFailure
+        );
+
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    </script>
+</body>
+
+</html>
